@@ -1,0 +1,4 @@
+# os/.cargo/config
+# 24301006 黄飞鹏 2026-11-09
+[build]
+target = "riscv64gc-unknown-none-elf"
