@@ -1,0 +1,9 @@
+# os/.cargo/config.toml
+# 24301006 黄飞鹏 2026-11-16
+[build]
+target = "riscv64gc-unknown-none-elf"
+
+[target.riscv64gc-unknown-none-elf]
+rustflags = [
+    "-C", "link-arg=-Tsrc/linker.ld",
+]
