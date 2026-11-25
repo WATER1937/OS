@@ -1,0 +1,5 @@
+# 24301006 黄飞鹏 2026-11-25
+[package]
+name = "user_lib"
+version = "0.1.0"
+edition = "2021"
