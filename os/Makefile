@@ -1,4 +1,4 @@
-# 24301006 黄飞鹏 2026-11-16
+# 24301006 黄飞鹏 2026-11-25
 # Building
 TARGET := riscv64gc-unknown-none-elf
 MODE := release
@@ -28,14 +28,18 @@ env:
 	rustup component add rust-src
 	rustup component add llvm-tools-preview
 
+user:
+	@cd ../user && make build
+
 $(KERNEL_BIN): kernel
 	@$(OBJCOPY) $(KERNEL_ELF) --strip-all -O binary $@
 
-kernel:
+kernel: user
 	@cargo build --release
 
 clean:
 	@cargo clean
+	@cd ../user && cargo clean
 
 disasm: kernel
 	@$(OBJDUMP) $(DISASM) $(KERNEL_ELF) | less
@@ -58,4 +62,4 @@ debug: build
 		tmux split-window -h "riscv64-unknown-elf-gdb -ex 'file $(KERNEL_ELF)' -ex 'set arch riscv:rv64' -ex 'target remote localhost:1234'" && \
 		tmux -2 attach-session -d
 
-.PHONY: build env kernel clean disasm disasm-vim run
+.PHONY: build env user kernel clean disasm disasm-vim run
